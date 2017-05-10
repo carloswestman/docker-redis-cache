@@ -1,6 +1,71 @@
 
-#Implementation and Performance of a Data Proxy in Docker
+# Testing Docker features with a Redis Key-Value Cache
 
+## An Example Architecture
+
+For our Docker test I choosed to implement a Key-Value Data Proxy based in Redis, MongoDB and Ruby.
+
+Figure 1 presents the architecture.
+
+<img src="./assets/cache_architecture.png">
+Figure 1. Cache Architecture
+
+
+## Creating Docker Images and Containers
+
+Docker indroduces the concept of Images, Containers and Docker Files.
+To define a container you tipically use a base image and specifiy further configuration and network settings in a Docker file. You use this Docker file to create a new image that can be run (you create an instance of the image) in Docker.
+
+In the case of Redis and Mongo we used the oficial images availble at Docker-hub. You can find the images and the documentation here:
+
+- Redis Image
+- MongoDB Image
+
+To run the images, we use the following command:
+
+/code here
+
+In the case of Ruby, 
+
+## Docker Compose
+
+Testing Docker Compose allows to deploy an infraestructe definition in the local Docker service.
+
+<IMPLEMENT>
+
+## Performance Measurement
+
+### Metrics
+
+### Profiling
+
+## Redis LRU Proxy
+Redis LRU parameter was implemented and tested like the the following arcticle: <a ref="https://redis.io/topics/lru-cache">Redis lru-cache</a>.
+
+Picture 2 shows the initial state of the Mongo collection. Pixels at the lower part of the image were written before (older data) than pixels upper part of the image (newer data).
+
+<img src="./assets/redismap_after_write.png">
+
+Picture 2. Redis initial collection state
+
+<img src="./assets/redismap_after_read.png">
+
+Picture 3. Redis discarding older samples using LRU algorithm
+
+Picture 3 shows the performance of Redis LRU algorithm which replicates the results published in the following link <link>.
+
+# Visualizing Services
+
+Visutalizing a services system and it's data interdependencies can become a complex task quickly. In this example I explored <tool here>.
+
+Figure 4 shows <continue>
+
+# Apendix A: Testing and Documenting with RSpec and RDoc
+
+# Aprendix B: Docker usesful commands
+
+
+## End
 ##Some Ideas
 -optimized for reads
 -writes are slow becasue they write both, Redis and Mongo. A further work would be to store Mongo Writes in a Queue in redis (LPush, RPop)and let them happen at their on pace. In that schema writes always should write Redis. What happens if by chance data expires in Redis while not written in Mongo?
@@ -72,3 +137,5 @@ Redis demo based on:
 <a url="https://medium.com/node-js-tips-tricks/implementing-a-job-queue-with-node-js-ffcfbc824b01#.bu5l9hqd4">https://medium.com/node-js-tips-tricks/implementing-a-job-queue-with-node-js-ffcfbc824b01#.bu5l9hqd4</a>
 
 More links:
+
+https://redis.io/topics/lru-cache
